@@ -370,7 +370,9 @@ def delocate_wheel(in_wheel,
         all_copied = {}
         wheel_dir = realpath(pjoin(tmpdir, 'wheel'))
         zip2dir(in_wheel, wheel_dir)
-        for package_path in find_package_dirs(wheel_dir):
+        package_paths = find_package_dirs(wheel_dir)
+        package_paths.add(wheel_dir)
+        for package_path in package_paths:
             lib_path = pjoin(package_path, lib_sdir)
             lib_path_exists = exists(lib_path)
             copied_libs = delocate_path(package_path, lib_path,
